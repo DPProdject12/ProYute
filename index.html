@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pro Уют — товары для дома и быта</title>
+  <meta name="description" content="Pro Уют — товары для дома: кухня, уборка, хранение, ванная, текстиль. Ессентуки, ул. Маяковского, 10. Тел. +7 (928) 323-77-68" />
+  <meta name="theme-color" content="#0b1220" />
+  <style>
+    :root{
+  --bg:#f3ede4;
+  --panel:#f7f1e8;
+  --card:#f7f1e8;
+
+  --text:#2b2b2b;
+  --muted:#6f6a63;
+  --muted2:#8a837b;
+
+  --line:#e1d7c8;
+  --shadow: 0 18px 40px rgba(80,60,40,.15);
+
+  --brand:#c6a46b;
+  --brand2:#a77b4f;
+  --accent:#e8dccb;
+
+  --radius:18px;
+  --radius2:26px;
+  --max:1180px;
+}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 15% -10%, rgba(201,166,107,.28), transparent 60%),
+        radial-gradient(900px 700px at 90% 10%, rgba(166,124,82,.18), transparent 55%),
+        radial-gradient(1000px 800px at 50% 110%, rgba(232,217,195,.55), transparent 55%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .container{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
+    .chip{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      font-size:13px;
+      color:var(--muted);
+    }
+    .btn{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      transition:.2s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.08)}
+    .btn:active{transform: translateY(0px)}
+    .btn.primary{
+      border:none;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color:var(--text);
+      box-shadow: 0 16px 40px rgba(110,231,255,.18);
+    }
+    .btn.primary:hover{filter:saturate(1.1)}
+    .btn.ghost{
+      background: transparent;
+      border:1px solid rgba(166,124,82,.35);
+    }
+    .btn.small{padding:10px 12px; border-radius:12px; font-size:14px}
+    .btn.icon{
+      width:44px; height:44px; justify-content:center; padding:0; border-radius:14px;
+    }
+    .btn:disabled{opacity:.5; cursor:not-allowed}
+    .badge{
+      font-size:12px; font-weight:800;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .grid{display:grid; gap:16px}
+    .h1{
+      font-size: clamp(32px, 4.2vw, 54px);
+      line-height: 1.02;
+      margin: 12px 0 10px;
+      letter-spacing:-.02em;
+    }
+    .h2{
+      font-size: clamp(22px, 2.5vw, 30px);
+      margin:0;
+      letter-spacing:-.015em;
+    }
+    .sub{color:var(--muted); font-size:16px; line-height:1.5; margin:0}
+    .muted{color:var(--muted)}
+    .muted2{color:var(--muted2)}
+    .sep{height:1px; background:var(--line); margin:18px 0}
+
+    /* Header */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background: rgba(247,244,239,.82);
+      border-bottom:1px solid var(--line);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+    }
+    .topbar .row{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 0;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:1000;
+      letter-spacing:-.02em;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:14px;
+      background:
+        radial-gradient(10px 10px at 30% 30%, rgba(255,255,255,.9), transparent 60%),
+        linear-gradient(135deg, rgba(201,166,107,.95), rgba(166,124,82,.95));
+      box-shadow: 0 16px 40px rgba(110,231,255,.15);
+      position:relative;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:10px;
+      border-radius:12px;
+      border:1px solid rgba(11,16,34,.35);
+      background: rgba(11,16,34,.15);
+    }
+    nav{
+      display:flex; gap:14px; align-items:center;
+    }
+    nav a{
+      font-size:14px;
+      color:var(--muted);
+      padding:10px 10px;
+      border-radius:12px;
+      transition:.2s ease;
+    }
+    nav a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .top-actions{display:flex; gap:10px; align-items:center}
+    .search{
+      display:flex; align-items:center; gap:10px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      padding:10px 12px;
+      border-radius:14px;
+      min-width: 320px;
+    }
+    .search input{
+      border:none; outline:none; background:transparent;
+      color:var(--text); width:100%;
+      font-size:14px;
+    }
+    .search .kbd{
+      font-size:12px; color:var(--muted2);
+      border:1px solid var(--line);
+      padding:3px 8px;
+      border-radius:10px;
+      background:rgba(0,0,0,.04);
+    }
+    .burger{display:none}
+
+    /* Hero */
+    .hero{padding:44px 0 22px}
+    .hero-wrap{
+      padding:26px;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background:
+        radial-gradient(900px 400px at 15% 20%, rgba(110,231,255,.16), transparent 50%),
+        radial-gradient(800px 420px at 90% 20%, rgba(167,139,250,.12), transparent 55%),
+        rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-grid{display:grid; grid-template-columns: 1fr; gap:18px; align-items:stretch}
+    .hero .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .hero .meta{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .rating{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(166,124,82,.35);
+      background:rgba(110,231,255,.08);
+      width:max-content;
+    }
+    .stars{display:inline-flex; gap:2px}
+    .star{width:16px; height:16px; filter: drop-shadow(0 6px 12px rgba(0,0,0,.08));}
+    .hero-right{
+      padding:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      display:flex; flex-direction:column; gap:12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-right:before{
+      content:"";
+      position:absolute; inset:-40px -40px auto auto;
+      width:220px; height:220px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(110,231,255,.35), transparent 65%);
+      filter: blur(8px);
+      opacity:.8;
+    }
+    .hero-tiles{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+    .tile{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.04);
+      border-radius:16px;
+      padding:12px;
+      min-height:86px;
+    }
+    .tile .t{font-weight:950; margin-bottom:4px}
+    .tile .d{color:var(--muted); font-size:13px; line-height:1.35}
+    .note{
+      border:1px solid rgba(52,211,153,.35);
+      background:rgba(52,211,153,.08);
+      border-radius:16px;
+      padding:12px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+    }
+
+    /* Sections */
+    section{padding:26px 0}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:14px;
+    }
+    .section-head p{max-width:680px}
+
+    /* Categories */
+    .cats{display:flex; flex-wrap:wrap; gap:10px;}
+    .cat-btn{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      cursor:pointer;
+      transition:.2s ease;
+      font-weight:800;
+      font-size:13px;
+    }
+    .cat-btn:hover{background:rgba(255,255,255,.07); color:var(--text)}
+    .cat-btn.active{
+      background:rgba(110,231,255,.12);
+      border-color:rgba(110,231,255,.35);
+      color:var(--text);
+    }
+
+    /* Products */
+    .products{grid-template-columns: repeat(12, 1fr)}
+    .product{
+      grid-column: span 3;
+      padding:14px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      position:relative;
+      overflow:hidden;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .product .img{
+  width:100%;
+  aspect-ratio: 4 / 3;
+  border-radius:14px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color:#e8dccb;
+  margin-bottom:10px;
+}
+
+    .product .img:after{content:""; position:absolute; inset:0; background: linear-gradient(180deg, transparent, rgba(0,0,0,.08));}
+    .product .tag{
+      position:absolute; top:12px; left:12px;
+      font-size:12px; font-weight:950;
+      padding:6px 10px; border-radius:999px;
+      background:rgba(0,0,0,.10);
+      border:1px solid var(--line);
+      color:var(--text);
+    }
+    .product .title{font-weight:950; letter-spacing:-.01em}
+    .product .desc{font-size:13px; color:var(--muted); line-height:1.4}
+    .price-row{display:flex; align-items:center; justify-content:space-between; gap:12px}
+    .price{font-size:18px; font-weight:1000; letter-spacing:-.02em;}
+    .old{font-size:13px; color:var(--muted2); text-decoration:line-through; margin-left:8px; font-weight:700;}
+    .p-actions{display:flex; gap:10px; margin-top:auto}
+    .qty{
+      display:flex; gap:8px; align-items:center;
+      padding:8px 10px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.04);
+    }
+    .qty button{
+      width:28px; height:28px; border-radius:10px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      cursor:pointer;
+      font-weight:1000;
+    }
+    .qty span{min-width:18px; text-align:center; font-weight:900}
+
+    /* Reviews slider */
+    .reviews{grid-template-columns: 1fr}
+    .slider{
+      position:relative;
+      overflow:hidden;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+    .slides{
+      display:flex;
+      transition: transform .35s ease;
+      will-change: transform;
+      touch-action: pan-y;
+    }
+    .review{min-width:100%; padding:18px; display:grid; gap:10px;}
+    .review-top{display:flex; justify-content:space-between; gap:12px; align-items:flex-start}
+    .who{display:flex; gap:12px; align-items:center}
+    .avatar{
+      width:44px; height:44px; border-radius:16px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.9), transparent 60%),
+        linear-gradient(135deg, rgba(110,231,255,.55), rgba(167,139,250,.55));
+    }
+    .name{font-weight:1000}
+    .when{font-size:13px; color:var(--muted2)}
+    .review p{margin:0; color:var(--muted); line-height:1.55}
+    .slider-controls{
+      position:absolute; inset:auto 12px 12px 12px;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:10px; pointer-events:none;
+    }
+    .slider-controls .btn{pointer-events:auto}
+    .dots{display:flex; gap:6px; align-items:center; justify-content:center; flex:1}
+    .dot2{
+      width:8px; height:8px; border-radius:99px;
+      background:rgba(255,255,255,.25);
+      border:1px solid var(--line);
+      cursor:pointer; pointer-events:auto;
+      transition:.2s ease;
+    }
+    .dot2.active{width:22px; background:rgba(110,231,255,.55); border-color:rgba(110,231,255,.35)}
+
+    /* FAQ */
+    .faq{display:grid; gap:10px}
+    details{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      padding:12px 14px;
+    }
+    summary{
+      cursor:pointer; list-style:none;
+      font-weight:950;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0; color:var(--muted); line-height:1.55}
+
+    /* Contacts */
+    .contact-grid{grid-template-columns: 1fr}
+    .contact-card{padding:18px}
+    .mini-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+    .social{display:flex; gap:10px; flex-wrap:wrap;}
+    .vk-card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(0,0,0,.04);
+      padding:14px;
+      display:grid; gap:8px;
+    }
+    .vk-top{display:flex; gap:12px; align-items:center}
+    .vk-ico{
+      width:42px; height:42px; border-radius:16px;
+      border:1px solid rgba(166,124,82,.35);
+      background:rgba(110,231,255,.08);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:1000;
+    }
+
+    
+/* Footer */
+    footer{padding:24px 0 40px; color:var(--muted2); font-size:13px;}
+    .footer-grid{
+      display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;
+      border-top:1px solid var(--line);
+      padding-top:16px;
+    }
+
+    /* Floating buttons */
+    .float{
+      position:fixed; right:16px; bottom:16px;
+      display:grid; gap:10px;
+      z-index:80;
+    }
+    .fab{
+      width:52px; height:52px; border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      box-shadow: var(--shadow);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer;
+      transition:.2s ease;
+      user-select:none;
+    }
+    .fab:hover{transform: translateY(-2px); background:rgba(255,255,255,.08)}
+    .fab.primary{
+      border:none;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color:var(--text);
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .search{min-width: 0; width:100%}
+      nav{display:none}
+      .burger{display:inline-flex}
+      .products .product{grid-column: span 6}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 560px){
+      .topbar .row{gap:10px}
+      .products .product{grid-column: span 12}
+      .hero-wrap{padding:18px}
+    }
+  
+    /* Mobile menu */
+    .mobile-menu{
+      position:fixed; inset:0;
+      display:none;
+      background:rgba(0,0,0,.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index:90;
+      padding:18px;
+      align-items:flex-start;
+      justify-content:center;
+    }
+    .mobile-menu.show{display:flex}
+    .mobile-menu-card{
+      width:min(520px, 96vw);
+      padding:16px;
+    }
+    .mobile-menu-head{display:flex; align-items:center; justify-content:space-between; gap:10px}
+    .mobile-links{display:grid; gap:10px}
+    .mobile-links a{
+      padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:800;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="topbar">
+    <div class="container">
+      <div class="row">
+        <a class="brand" href="#top" aria-label="Pro Уют">
+          <span class="logo" aria-hidden="true"></span>
+          <span>Pro Уют</span>
+          <span class="badge">товары для дома</span>
+        </a>
+
+        <nav aria-label="Навигация">
+          <a href="#catalog">Каталог</a>
+          <a href="#reviews">Отзывы</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contacts">Контакты</a>
+        </nav>
+
+        <div class="top-actions">
+          <button class="btn icon burger" id="openMenu" title="Меню" aria-label="Меню">☰</button>
+
+          <div class="search" role="search" aria-label="Поиск по товарам">
+            <span aria-hidden="true">🔎</span>
+            <input id="searchInput" type="search" placeholder="Поиск: контейнер, швабра, органайзер..." autocomplete="off" />
+            <span class="kbd">Ctrl K</span>
+          </div>
+</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-card card">
+      <div class="mobile-menu-head">
+        <b>Меню</b>
+        <button class="btn icon" id="closeMenu" aria-label="Закрыть">✕</button>
+      </div>
+      <div class="sep" style="margin:12px 0"></div>
+      <div class="mobile-links">
+        <a href="#catalog">Каталог</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contacts">Контакты</a>
+      </div>
+      <div class="sep" style="margin:12px 0"></div>
+      <div class="mobile-links">
+        <a id="mWA" href="#" target="_blank" rel="noopener">💬 WhatsApp</a>
+        <a id="mTG" href="#" target="_blank" rel="noopener">✈️ Telegram</a>
+        <a id="mVK" href="#" target="_blank" rel="noopener">VK</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Hero -->
+  <main id="top" class="hero">
+    <div class="container">
+      <div class="hero-wrap">
+        <div class="hero-grid">
+          <div>
+            <span class="chip">✨ Уют начинается с мелочей • скидки недели • удобно и быстро</span>
+            <h1 class="h1">Pro Уют — всё для дома и быта в одном месте</h1>
+            <p class="sub">
+              Кухня, уборка, хранение, ванная, текстиль и полезные мелочи. Подберём товары под вашу задачу.
+              <span class="muted2">Ессентуки • ул. Маяковского, 10</span>
+            </p>
+
+            <!-- Rating -->
+            <div class="meta">
+              <div class="rating" aria-label="Рейтинг 4.9 из 5">
+                <div class="stars" aria-hidden="true" id="heroStars"></div>
+                <strong>4.9/5</strong>
+                <span class="muted2">• 1 240+ покупок</span>
+              </div>
+              <span class="chip">🛡️ Гарантия качества • возврат 14 дней</span>
+              <span class="chip">📞 <span id="chipPhone"></span></span>
+            </div>
+
+            <div class="actions">
+              <a class="btn primary" href="#catalog">Перейти в каталог</a>
+</div>
+
+            <div class="sep"></div>
+
+            <div class="grid hero-tiles">
+              <div class="tile">
+                <div class="t">Хит-подборки</div>
+                <div class="d">Органайзеры, хранение, уборка — то, что реально упрощает быт.</div>
+              </div>
+              <div class="tile">
+                <div class="t">Оплата</div>
+                <div class="d">Картой/наличными при получении или онлайн (в демо — заглушка).</div>
+              </div>
+              <div class="tile">
+                <div class="t">Скидки</div>
+                <div class="d">Промокод <b>PROUYUT</b> на −7% в корзине.</div>
+              </div>
+              <div class="tile">
+                <div class="t">Поддержка</div>
+                <div class="d">Поможем выбрать по фото/видео. Быстро ответим в мессенджере.</div>
+              </div>
+            </div>
+          </div>
+</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Catalog -->
+  <section id="catalog">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="h2">Каталог</h2>
+          <p class="sub">Выберите категорию, используйте поиск. Добавляйте в корзину и оформляйте заказ.</p>
+        </div>
+        <div class="mini-row">
+          <span class="chip">💡 Подсказка: клик по товару открывает описание</span>
+        </div>
+      </div>
+
+      <div class="cats" id="categoryBar" aria-label="Категории товаров"></div>
+
+      <div class="sep"></div>
+
+      <div class="grid products" id="productsGrid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="h2">Отзывы клиентов</h2>
+          <p class="sub">Листайте стрелками или свайпом. Кнопка “Оставить отзыв” ведёт на Яндекс Карты.</p>
+        </div>
+        <div class="mini-row">
+          <a class="btn primary" id="leaveReviewBtn" href="#" target="_blank" rel="noopener">Оставить отзыв</a>
+        </div>
+      </div>
+
+      <div class="grid reviews">
+        <div class="slider" id="slider">
+          <div class="slides" id="slides"></div>
+          <div class="slider-controls">
+            <button class="btn small" id="prevReview" aria-label="Предыдущий отзыв">←</button>
+            <div class="dots" id="reviewDots" aria-label="Переключатели отзывов"></div>
+            <button class="btn small" id="nextReview" aria-label="Следующий отзыв">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="h2">Частые вопросы</h2>
+          <p class="sub">Коротко и по делу. Если нужно — напишите, поможем выбрать.</p>
+        </div>
+      </div>
+
+      <div class="faq">
+        
+        <details>
+          <summary>Можно ли вернуть товар?</summary>
+          <p>Да, в течение 14 дней. Главное — сохранить товарный вид и комплектность.</p>
+        </details>
+        <details>
+          <summary>Есть ли опт/наборы?</summary>
+          <p>Да. Скажете задачу и бюджет — соберём набор (часто выгоднее, чем поштучно).</p>
+        </details>
+        <details>
+          <summary>Как подобрать органайзер/контейнер по размеру?</summary>
+          <p>Напишите размеры полки/ящика или пришлите фото — предложим варианты и объясним разницу.</p>
+        </details>
+        <details>
+          <summary>Какая гарантия на товары?</summary>
+          <p>Гарантия на брак/дефекты. Если что-то не так — заменим или оформим возврат.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacts -->
+  <section id="contacts">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="h2">Контакты</h2>
+          <p class="sub">Свяжитесь с нами любым удобным способом. Ниже — контактная информация и мессенджеры.</p>
+        </div>
+      </div>
+
+      <div class="grid contact-grid">
+        <!-- Right: contact info -->
+<div class="card contact-card" id="contactInfoCard">
+          <div class="mini-row" style="justify-content:space-between">
+            <b>Контактная информация</b>
+            <span class="badge">Pro Уют</span>
+          </div>
+
+          <div class="sep"></div>
+
+          <p style="margin:0 0 10px; color:var(--muted)">
+            <b>📞 Телефон:</b><br>
+            <a id="phoneLink" href="tel:+79283237768">+7 (928) 323-77-68</a>
+          </p>
+
+          <p style="margin:0 0 10px; color:var(--muted)">
+            <b>🕘 График работы:</b><br>
+            <span id="workTimeText">ежедневно, 09:00–19:00</span>
+          </p>
+
+          <p style="margin:0; color:var(--muted)">
+            <b>📍 Адрес:</b><br>
+            <span id="addressText">Ессентуки, ул. Маяковского, 10</span>
+          </p>
+
+          <div class="sep"></div>
+
+          <div class="mini-row">
+            <a class="btn" id="openMapBtn" href="#" target="_blank" rel="noopener">📍 Открыть на карте</a>
+            <a class="btn ghost" id="routeBtn" href="#" target="_blank" rel="noopener">🧭 Построить маршрут</a>
+          </div>
+
+          <div class="sep"></div>
+
+          <div class="social">
+            <a class="btn" id="waBtn" href="#" target="_blank" rel="noopener">💬 WhatsApp</a>
+            <a class="btn ghost" id="tgBtn" href="#" target="_blank" rel="noopener">✈️ Telegram</a>
+            <a class="btn ghost" id="vkBtn" href="#" target="_blank" rel="noopener">VK</a>
+          </div>
+
+          <div class="sep"></div>
+
+          <div class="vk-card">
+            <div class="vk-top">
+              <div class="vk-ico">VK</div>
+              <div>
+                <div style="font-weight:1000">Pro Уют — полезное для дома</div>
+                <div class="muted2" style="font-size:13px">Новости, подборки, акции</div>
+              </div>
+            </div>
+            <div class="muted" style="font-size:13px; line-height:1.45">
+              Подключите ваш виджет/ссылку на сообщество. Сейчас кнопка VK ведёт на указанную ссылку.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>© <span id="year"></span> Pro Уют. Все права защищены.</div>
+        <div class="mini-row">
+          <a class="chip" href="#top">Наверх ↑</a>
+          <span class="chip">Политика • оферта (добавите при необходимости)</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating buttons -->
+  <div class="float" aria-label="Быстрые действия">
+    <a class="fab" id="fabWA" href="#" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">💬</a>
+    <a class="fab" id="fabTG" href="#" target="_blank" rel="noopener" title="Telegram" aria-label="Telegram">✈️</a>
+</div>
+</div>
+  </div>
+
+  <script>
+/* ==========================
+      CONFIG — ВАШИ ДАННЫЕ
+    ========================== */
+    const CONFIG = {
+      reviewLinks: {
+        yandex: "https://yandex.ru/maps/?text=%D0%95%D1%81%D1%81%D0%B5%D0%BD%D1%82%D1%83%D0%BA%D0%B8%2C%20%D1%83%D0%BB.%20%D0%9C%D0%B0%D1%8F%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%2C%2010",
+        google: "https://www.google.com/maps"
+      },
+
+      phoneDisplay: "+7 (928) 323-77-68",
+      phoneTel: "+79283237768",
+      workTime: "ежедневно, 09:00–19:00",
+      address: "Ессентуки, ул. Маяковского, 10",
+
+      whatsapp: "https://wa.me/79283237768?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D1%82%D0%BE%D1%87%D0%BD%D0%B8%D1%82%D1%8C%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B5%20%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%B0%20%D0%B2%20Pro%20%D0%A3%D1%8E%D1%82",
+      telegram: "https://t.me/",
+      vk: "https://vk.com/",
+
+      mapLink: "https://yandex.ru/maps/?text=%D0%95%D1%81%D1%81%D0%B5%D0%BD%D1%82%D1%83%D0%BA%D0%B8%2C%20%D1%83%D0%BB.%20%D0%9C%D0%B0%D1%8F%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%2C%2010",
+      routeLink: "https://yandex.ru/maps/?rtext=~%D0%95%D1%81%D1%81%D0%B5%D0%BD%D1%82%D1%83%D0%BA%D0%B8%2C%20%D1%83%D0%BB.%20%D0%9C%D0%B0%D1%8F%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%2C%2010&rtt=auto",
+
+      rating: 4.9,
+      ratingMax: 5
+    };
+
+    /* ==========================
+      DATA
+    ========================== */
+    const CATEGORIES = [
+      { id:"all", name:"Все" },
+      { id:"kitchen", name:"Кухня" },
+      { id:"cleaning", name:"Уборка" },
+      { id:"storage", name:"Хранение" },
+      { id:"bath", name:"Ванная" },
+      { id:"textile", name:"Текстиль" },
+      { id:"useful", name:"Полезные мелочи" },
+    ];
+
+    const PRODUCTS = [
+      // ===== КУХНЯ =====
+      { id:"p1", cat:"kitchen", title:"Контейнеры для сыпучих (набор 6 шт.)", desc:"Герметичные крышки, экономят место.", price:1290, old:1590, tag:"Хит" , img:"assets/tovar/kit1.jpg"},
+      { id:"p2", cat:"kitchen", title:"Доска разделочная бамбуковая", desc:"Экологичная, не тупит ножи.", price:590, old:790, tag:"Практично" , img:"assets/tovar/kit2.jpg"},
+      { id:"p3", cat:"kitchen", title:"Силиконовые формы для выпечки", desc:"Антипригарные, легко мыть.", price:540, old:690, tag:"Новый" , img:"assets/tovar/kit3.jpg"},
+      { id:"p4", cat:"kitchen", title:"Набор кухонных принадлежностей (5 шт.)", desc:"Термостойкий силикон.", price:1190, old:1490, tag:"Хит" , img:"assets/tovar/kit14.jpg"},
+      { id:"p5", cat:"kitchen", title:"Подставка под горячее (2 шт.)", desc:"Защита стола и столешницы.", price:390, old:520, tag:"Уют" , img:"assets/tovar/kit5.jpg"},
+      { id:"p6", cat:"kitchen", title:"Органайзер для крышек", desc:"Порядок в шкафу, регулируемая ширина.", price:490, old:650, tag:"Удобно" , img:"assets/tovar/kit6.jpg"},
+      { id:"p7", cat:"kitchen", title:"Сушилка для посуды складная", desc:"Компактно хранится, поддон в комплекте.", price:990, old:1290, tag:"Практично" , img:"assets/tovar/kit7.jpg"},
+
+      // ===== УБОРКА =====
+      { id:"p8", cat:"cleaning", title:"Швабра с отжимом и ведром", desc:"Отжим без рук, микрофибра.", price:1890, old:2290, tag:"Топ" , img:"assets/tovar/uborka1.jpg"},
+      { id:"p9", cat:"cleaning", title:"Салфетки микрофибра (8 шт.)", desc:"Без разводов, многоразовые.", price:420, old:520, tag:"Лёгко" , img:"assets/tovar/uborka2.jpg"},
+      { id:"p10", cat:"cleaning", title:"Щётка для окон с телескопической ручкой", desc:"Для труднодоступных мест.", price:690, old:890, tag:"Удобно" , img:"assets/tovar/uborka3.jpg"},
+      { id:"p11", cat:"cleaning", title:"Набор для уборки ванной (3 предмета)", desc:"Щётки + держатель.", price:790, old:990, tag:"Новый" , img:"assets/tovar/uborka4.jpg"},
+      { id:"p12", cat:"cleaning", title:"Валик для одежды/шерсти", desc:"Сменные листы, удобно для дивана.", price:290, old:390, tag:"Мелочь" , img:"assets/tovar/uborka5.jpg"},
+
+      // ===== ХРАНЕНИЕ =====
+      { id:"p13", cat:"storage", title:"Органайзер для ящика (модульный)", desc:"Собирается под любой размер.", price:790, old:990, tag:"Хит" , img:"assets/tovar/hran1.jpg"},
+      { id:"p14", cat:"storage", title:"Корзина для хранения (текстиль)", desc:"Складная, 3 размера.", price:650, old:790, tag:"Уют" , img:"assets/tovar/hran2.jpg"},
+      { id:"p15", cat:"storage", title:"Контейнер под кровать на колёсах", desc:"Для сезонных вещей и хранения.", price:1590, old:1890, tag:"Практично" , img:"assets/tovar/hran3.jpg"},
+      { id:"p16", cat:"storage", title:"Вакуумные пакеты для одежды (3 шт.)", desc:"Экономят место до 70%.", price:590, old:740, tag:"Место" , img:"assets/tovar/hran4.jpg"},
+      { id:"p17", cat:"storage", title:"Разделители для полок (2 шт.)", desc:"Не даёт вещам падать, аккуратно.", price:520, old:690, tag:"Порядок" , img:"assets/tovar/hran5.jpg"},
+
+      // ===== ВАННАЯ =====
+      { id:"p18", cat:"bath", title:"Полка в ванную без сверления", desc:"Крепление на клей, до 8 кг.", price:690, old:890, tag:"Удобно" , img:"assets/tovar/van1.jpg"},
+      { id:"p19", cat:"bath", title:"Дозатор для мыла 350 мл", desc:"Минималистичный дизайн.", price:520, old:650, tag:"Стильно" , img:"assets/tovar/van2.jpg"},
+      { id:"p20", cat:"bath", title:"Коврик для ванной антискользящий", desc:"Мягкий, быстро сохнет.", price:790, old:990, tag:"Комфорт" , img:"assets/tovar/van3.jpg"},
+      { id:"p21", cat:"bath", title:"Набор аксессуаров для ванной (4 шт.)", desc:"Единый стиль интерьера.", price:1290, old:1590, tag:"Хит" , img:"assets/tovar/van4.jpg"},
+
+      // ===== ТЕКСТИЛЬ =====
+      { id:"p22", cat:"textile", title:"Набор полотенец (4 шт.)", desc:"Плотные, хорошо впитывают.", price:990, old:1190, tag:"Скидка" , img:"assets/tovar/tex1.jpg"},
+      { id:"p23", cat:"textile", title:"Плед мягкий 150×200", desc:"Для дивана и кровати.", price:1490, old:1790, tag:"Тепло" , img:"assets/tovar/tex2.jpg"},
+      { id:"p24", cat:"textile", title:"Подушка декоративная", desc:"Добавляет уюта интерьеру.", price:690, old:890, tag:"Уют" , img:"assets/tovar/tex3.jpg"},
+
+      // ===== ПОЛЕЗНЫЕ МЕЛОЧИ =====
+      { id:"p25", cat:"useful", title:"Крючки самоклеящиеся (10 шт.)", desc:"Снимаются без следов.", price:390, old:490, tag:"Мелочь" , img:"assets/tovar/mel1.jpg"},
+      { id:"p26", cat:"useful", title:"Органайзер для проводов", desc:"Порядок на рабочем столе.", price:290, old:390, tag:"Удобно" , img:"assets/tovar/mel2.jpg"},
+      { id:"p27", cat:"useful", title:"Ночник с тёплым светом", desc:"Мягкое освещение для дома.", price:890, old:1090, tag:"Уют" , img:"assets/tovar/mel3.jpg"},
+      { id:"p28", cat:"useful", title:"Набор прищепок (24 шт.)", desc:"Крепкие, не ломаются.", price:260, old:330, tag:"Практично" , img:"assets/tovar/mel4.jpg"},
+    ];
+
+    const REVIEWS = [
+      { name:"Марина", date:"2 дня назад", rating:5, text:"Очень быстро помогли с подбором, контейнеры реально герметичные. Упаковка супер!" },
+      { name:"Артём", date:"неделю назад", rating:5, text:"Классные товары для дома, всё аккуратно и по делу. Спасибо!" },
+      { name:"Екатерина", date:"2 недели назад", rating:4, text:"Органайзеры понравились, удобно. Хотелось бы больше вариантов размеров." },
+    ];
+
+    /* ==========================
+      HELPERS
+    ========================== */
+    const fmt = (n)=> new Intl.NumberFormat("ru-RU").format(n) + " ₽";
+
+    function starSVG(fill=1){
+      const gradId = "g" + Math.random().toString(16).slice(2);
+      return `
+      <svg class="star" viewBox="0 0 24 24" aria-hidden="true">
+        <defs>
+          <linearGradient id="${gradId}" x1="0" x2="1">
+            <stop offset="${fill*100}%" stop-color="rgba(251,191,36,.95)"/>
+            <stop offset="${fill*100}%" stop-color="rgba(255,255,255,.18)"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#${gradId})" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+      </svg>`;
+    }
+
+    function renderStars(el, value, max=5){
+      const full = Math.floor(value);
+      const frac = value - full;
+      let html = "";
+      for(let i=0;i<max;i++){
+        if(i<full) html += starSVG(1);
+        else if(i===full && frac>0) html += starSVG(frac);
+        else html += starSVG(0);
+      }
+      el.innerHTML = html;
+    }
+
+    function categoryName(id){
+      const c = CATEGORIES.find(x=>x.id===id);
+      return c ? c.name : id;
+    }
+
+    function waLinkForProduct(title){
+      const msg = `Здравствуйте! Хочу уточнить наличие товара в Pro Уют: ${title}`;
+      return `https://wa.me/${CONFIG.phoneTel.replace("+","")}?text=${encodeURIComponent(msg)}`;
+    }
+
+    /* ==========================
+      INIT CONTACT LINKS
+    ========================== */
+    renderStars(document.getElementById("heroStars"), CONFIG.rating, CONFIG.ratingMax);
+    document.getElementById("leaveReviewBtn").href = CONFIG.reviewLinks.yandex;
+
+    document.getElementById("chipPhone").textContent = CONFIG.phoneDisplay;
+
+    document.getElementById("phoneLink").textContent = CONFIG.phoneDisplay;
+    document.getElementById("phoneLink").href = "tel:" + CONFIG.phoneTel;
+    document.getElementById("workTimeText").textContent = CONFIG.workTime;
+    document.getElementById("addressText").textContent = CONFIG.address;
+
+    document.getElementById("openMapBtn").href = CONFIG.mapLink;
+    document.getElementById("routeBtn").href = CONFIG.routeLink;
+
+    document.getElementById("waBtn").href = CONFIG.whatsapp;
+    document.getElementById("tgBtn").href = CONFIG.telegram;
+    document.getElementById("vkBtn").href = CONFIG.vk;
+
+    document.getElementById("fabWA").href = CONFIG.whatsapp;
+    document.getElementById("fabTG").href = CONFIG.telegram;
+
+    document.getElementById("mWA").href = CONFIG.whatsapp;
+    document.getElementById("mTG").href = CONFIG.telegram;
+    document.getElementById("mVK").href = CONFIG.vk;
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    /* ==========================
+      Mobile menu
+    ========================== */
+    const mobileMenu = document.getElementById("mobileMenu");
+    const openMenuBtn = document.getElementById("openMenu");
+    const closeMenuBtn = document.getElementById("closeMenu");
+
+    function openMenu(){
+      mobileMenu.classList.add("show");
+      mobileMenu.setAttribute("aria-hidden","false");
+    }
+    function closeMenu(){
+      mobileMenu.classList.remove("show");
+      mobileMenu.setAttribute("aria-hidden","true");
+    }
+    openMenuBtn.addEventListener("click", openMenu);
+    closeMenuBtn.addEventListener("click", closeMenu);
+    mobileMenu.addEventListener("click", (e)=>{
+      if(e.target === mobileMenu) closeMenu();
+    });
+    document.querySelectorAll(".mobile-links a").forEach(a=>{
+      a.addEventListener("click", ()=> closeMenu());
+    });
+
+    /* ==========================
+      Categories + Search + Products
+    ========================== */
+    const categoryBar = document.getElementById("categoryBar");
+    const productsGrid = document.getElementById("productsGrid");
+    let activeCat = "all";
+    let query = "";
+
+    function renderCategories(){
+      categoryBar.innerHTML = CATEGORIES.map(c=>`
+        <button class="cat-btn ${c.id===activeCat?'active':''}" data-cat="${c.id}">
+          ${c.name}
+        </button>
+      `).join("");
+      categoryBar.querySelectorAll(".cat-btn").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          activeCat = btn.dataset.cat;
+          renderCategories();
+          renderProducts();
+        });
+      });
+    }
+    renderCategories();
+
+    function getFilteredProducts(){
+      const q = query.trim().toLowerCase();
+      return PRODUCTS.filter(p=>{
+        const catOk = activeCat==="all" ? true : p.cat===activeCat;
+        const qOk = !q ? true : (p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+        return catOk && qOk;
+      });
+    }
+
+    function renderProducts(){
+      const list = getFilteredProducts();
+      if(list.length===0){
+        productsGrid.innerHTML = `<div class="card" style="grid-column:1/-1; padding:16px">
+          <b>Ничего не нашли</b>
+          <div class="muted" style="margin-top:6px">Попробуйте другой запрос или категорию.</div>
+        </div>`;
+        return;
+      }
+
+      productsGrid.innerHTML = list.map(p=>`
+          <article class="product" data-id="${p.id}">
+            <div class="img" role="img" aria-label="${p.title}" style="background-image:url('${p.img || "assets/products/placeholder.jpg"}')">
+              <span class="tag">${p.tag}</span>
+            </div>
+            <div class="title">${p.title}</div>
+            <div class="desc">${p.desc}</div>
+            <div class="price-row">
+              <div>
+                <span class="price">${fmt(p.price)}</span>
+                <span class="old">${fmt(p.old)}</span>
+              </div>
+              <span class="badge">${categoryName(p.cat)}</span>
+            </div>
+
+            <div class="muted2" style="font-size:12px; line-height:1.4">
+              Наличие и актуальную цену уточняйте в магазине или в WhatsApp.
+            </div>
+
+            <div class="p-actions">
+              <a class="btn small primary" href="${waLinkForProduct(p.title)}" target="_blank" rel="noopener">💬 Узнать наличие</a>
+              <button class="btn small" data-copy>Скопировать</button>
+            </div>
+          </article>
+      `).join("");
+
+      productsGrid.querySelectorAll(".product").forEach(card=>{
+        const id = card.dataset.id;
+        const p = PRODUCTS.find(x=>x.id===id);
+
+        card.querySelector("[data-copy]").addEventListener("click", async (e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          try{
+            await navigator.clipboard.writeText(p.title);
+            alert("Название товара скопировано ✅");
+          }catch{
+            prompt("Скопируйте название товара:", p.title);
+          }
+        });
+      });
+    }
+
+    renderProducts();
+
+    // Search (Ctrl+K)
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", ()=>{
+      query = searchInput.value;
+      renderProducts();
+    });
+    document.addEventListener("keydown", (e)=>{
+      if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==="k"){
+        e.preventDefault();
+        searchInput.focus();
+      }
+      if(e.key==="Escape"){
+        closeMenu();
+      }
+    });
+
+    /* ==========================
+      Reviews slider
+    ========================== */
+    const slidesEl = document.getElementById("slides");
+    const dotsEl = document.getElementById("reviewDots");
+    let slideIndex = 0;
+    let startX = 0, dx = 0, dragging = false;
+
+    function renderReviews(){
+      slidesEl.innerHTML = REVIEWS.map(r=>`
+        <div class="review">
+          <div class="review-top">
+            <div class="who">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <div class="name">${r.name}</div>
+                <div class="when">${r.date}</div>
+              </div>
+            </div>
+            <div class="stars" aria-label="Оценка ${r.rating} из 5">
+              ${Array.from({length:5}).map((_,i)=>starSVG(i<r.rating?1:0)).join("")}
+            </div>
+          </div>
+          <p>${r.text}</p>
+        </div>
+      `).join("");
+
+      dotsEl.innerHTML = REVIEWS.map((_,i)=>`<span class="dot2 ${i===slideIndex?'active':''}" data-i="${i}" role="button" aria-label="Отзыв ${i+1}"></span>`).join("");
+      dotsEl.querySelectorAll(".dot2").forEach(d=>{
+        d.addEventListener("click", ()=>{ slideIndex = +d.dataset.i; updateSlider(); });
+      });
+      updateSlider();
+    }
+
+    function updateSlider(){
+      slidesEl.style.transform = `translateX(${-slideIndex * 100}%)`;
+      dotsEl.querySelectorAll(".dot2").forEach((d,i)=> d.classList.toggle("active", i===slideIndex));
+    }
+
+    document.getElementById("prevReview").addEventListener("click", ()=>{
+      slideIndex = (slideIndex - 1 + REVIEWS.length) % REVIEWS.length;
+      updateSlider();
+    });
+    document.getElementById("nextReview").addEventListener("click", ()=>{
+      slideIndex = (slideIndex + 1) % REVIEWS.length;
+      updateSlider();
+    });
+
+    const slider = document.getElementById("slider");
+    slider.addEventListener("pointerdown", (e)=>{
+      dragging = true;
+      startX = e.clientX;
+      dx = 0;
+      slider.setPointerCapture(e.pointerId);
+    });
+    slider.addEventListener("pointermove", (e)=>{
+      if(!dragging) return;
+      dx = e.clientX - startX;
+    });
+    slider.addEventListener("pointerup", ()=>{
+      if(!dragging) return;
+      dragging = false;
+      if(Math.abs(dx) > 50){
+        if(dx < 0) slideIndex = (slideIndex + 1) % REVIEWS.length;
+        else slideIndex = (slideIndex - 1 + REVIEWS.length) % REVIEWS.length;
+        updateSlider();
+      }
+    });
+
+    renderReviews();
+    document.querySelectorAll("button").forEach(b=> b.style.touchAction = "manipulation");
+</script>
+</body>
+</html>
