@@ -296,11 +296,14 @@
   background-repeat: no-repeat;
   background-color:#e8dccb;
   margin-bottom:10px;
+  position:relative;
+  overflow:hidden;
 }
 
-    .product .img:after{content:""; position:absolute; inset:0; background: linear-gradient(180deg, transparent, rgba(0,0,0,.08));}
+    .product .img:after{content:""; position:absolute; inset:0; background: linear-gradient(180deg, transparent, rgba(0,0,0,.08)); pointer-events:none;}
     .product .tag{
       position:absolute; top:12px; left:12px;
+      z-index:2;
       font-size:12px; font-weight:950;
       padding:6px 10px; border-radius:999px;
       background:rgba(0,0,0,.10);
@@ -312,7 +315,7 @@
     .price-row{display:flex; align-items:center; justify-content:space-between; gap:12px}
     .price{font-size:18px; font-weight:1000; letter-spacing:-.02em;}
     .old{font-size:13px; color:var(--muted2); text-decoration:line-through; margin-left:8px; font-weight:700;}
-    .p-actions{display:flex; gap:10px; margin-top:auto}
+    .p-actions{display:flex; gap:10px; margin-top:auto; position:relative; z-index:3}
     .qty{
       display:flex; gap:8px; align-items:center;
       padding:8px 10px;
@@ -896,6 +899,91 @@
       return `https://wa.me/${CONFIG.phoneTel.replace("+","")}?text=${encodeURIComponent(msg)}`;
     }
 
+    function buildProductDescription(p){
+      const categoryNotes = {
+        kitchen: {
+          purpose: "Подойдёт для ежедневного использования на кухне: приготовления, сервировки и удобной организации пространства.",
+          benefits: "Помогает поддерживать порядок, экономит место и делает кухонные процессы более комфортными.",
+          care: "Рекомендуется бережный уход, очищение мягкими средствами и хранение в сухом месте.",
+          extra: "Отличный вариант для дома, дачи или в качестве полезного подарка для хозяйства."
+        },
+        cleaning: {
+          purpose: "Предназначен для регулярной уборки дома и быстрого поддержания чистоты без лишних усилий.",
+          benefits: "Помогает сократить время на уборку, делает процесс удобнее и поддерживает аккуратный вид помещений.",
+          care: "После использования рекомендуется промыть рабочие элементы, просушить и хранить в сухом месте.",
+          extra: "Подходит для квартиры, дома, офиса и ежедневного бытового применения."
+        },
+        storage: {
+          purpose: "Используется для аккуратного хранения вещей, одежды, аксессуаров и бытовых мелочей.",
+          benefits: "Позволяет рационально использовать пространство и облегчает поиск нужных предметов.",
+          care: "Для длительного срока службы желательно не перегружать изделие и периодически очищать от пыли.",
+          extra: "Хорошо вписывается в шкафы, полки, комоды и другие зоны хранения."
+        },
+        bath: {
+          purpose: "Создан для удобного размещения аксессуаров и повышения комфорта в ванной комнате.",
+          benefits: "Помогает поддерживать порядок, визуально делает пространство аккуратнее и приятнее.",
+          care: "Рекомендуется регулярно протирать поверхность и не оставлять изделие надолго во влажной среде без ухода.",
+          extra: "Подходит как для современного, так и для классического интерьера ванной комнаты."
+        },
+        textile: {
+          purpose: "Подходит для создания уюта, ежедневного использования и мягкого декоративного оформления интерьера.",
+          benefits: "Добавляет дому тепло, комфорт и завершённый внешний вид.",
+          care: "Желательно соблюдать рекомендации по стирке и сушке, чтобы сохранить внешний вид и мягкость материала.",
+          extra: "Хороший вариант для спальни, гостиной, детской комнаты или дачи."
+        },
+        useful: {
+          purpose: "Практичная мелочь для дома, которая помогает сделать повседневные задачи проще и удобнее.",
+          benefits: "Экономит время, упрощает организацию пространства и повышает бытовой комфорт.",
+          care: "Особого ухода не требует, достаточно аккуратного использования по назначению.",
+          extra: "Подходит для ежедневного применения дома, на работе или в поездках."
+        }
+      };
+
+      const note = categoryNotes[p.cat] || {
+        purpose: "Подходит для повседневного использования дома.",
+        benefits: "Помогает сделать быт удобнее и практичнее.",
+        care: "Рекомендуется аккуратное использование и хранение в подходящих условиях.",
+        extra: "Наличие и детали можно уточнить в магазине."
+      };
+
+      const discount = p.old > p.price ? `${fmt(p.old - p.price)}` : "—";
+
+      return `Товар: ${p.title}
+
+`
+        + `Кратко: ${p.desc}
+
+`
+        + `Категория: ${categoryName(p.cat)}
+`
+        + `Текущая цена: ${fmt(p.price)}
+`
+        + `Цена до скидки: ${fmt(p.old)}
+`
+        + `Экономия: ${discount}
+
+`
+        + `Для чего подходит:
+${note.purpose}
+
+`
+        + `Преимущества:
+• ${p.desc}
+• ${note.benefits}
+• Подходит для регулярного бытового использования.
+
+`
+        + `Рекомендации по использованию:
+${note.care}
+
+`
+        + `Дополнительно:
+${note.extra}
+
+`
+        + `Наличие, точные размеры, расцветки и комплектацию можно уточнить в магазине Pro Уют или в WhatsApp.`;
+    }
+
     /* ==========================
       INIT CONTACT LINKS
     ========================== */
@@ -1012,8 +1100,8 @@
             </div>
 
             <div class="p-actions">
-              <a class="btn small primary" href="${waLinkForProduct(p.title)}" target="_blank" rel="noopener">💬 Узнать наличие</a>
-              <button class="btn small" data-copy>Скопировать</button>
+              <button class="btn small primary btn-desc" type="button" data-desc>📝 Описание</button>
+              <button class="btn small" type="button" data-copy>Скопировать</button>
             </div>
           </article>
       `).join("");
@@ -1031,6 +1119,12 @@
           }catch{
             prompt("Скопируйте название товара:", p.title);
           }
+        });
+
+        card.querySelector("[data-desc]").addEventListener("click", (e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          alert(buildProductDescription(p));
         });
       });
     }
@@ -1125,5 +1219,8 @@
     renderReviews();
     document.querySelectorAll("button").forEach(b=> b.style.touchAction = "manipulation");
 </script>
+
+
+
 </body>
 </html>
