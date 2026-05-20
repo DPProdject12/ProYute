@@ -231,13 +231,86 @@
     .hero-tiles{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
     .tile{
       border:1px solid var(--line);
-      background:rgba(0,0,0,.04);
-      border-radius:16px;
-      padding:12px;
-      min-height:86px;
+      border-radius:18px;
+      padding:16px;
+      min-height:100px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .2s ease, box-shadow .2s ease;
+      cursor:default;
     }
-    .tile .t{font-weight:950; margin-bottom:4px}
-    .tile .d{color:var(--muted); font-size:13px; line-height:1.35}
+    .tile:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(80,60,40,.18);
+    }
+    .tile-icon{
+      font-size:26px;
+      margin-bottom:8px;
+      display:block;
+      line-height:1;
+    }
+    .tile .t{font-weight:950; margin-bottom:5px; font-size:15px}
+    .tile .d{color:var(--muted); font-size:13px; line-height:1.45}
+
+    /* Хит-подборки — золотой */
+    .tile-hits{
+      background: linear-gradient(135deg, rgba(198,164,107,.18), rgba(167,123,79,.08));
+      border-color: rgba(198,164,107,.5);
+    }
+    .tile-hits:before{
+      content:"";
+      position:absolute; top:-30px; right:-30px;
+      width:100px; height:100px; border-radius:50%;
+      background: radial-gradient(circle, rgba(198,164,107,.35), transparent 70%);
+      pointer-events:none;
+    }
+    /* Оплата — зелёный */
+    .tile-pay{
+      background: linear-gradient(135deg, rgba(52,211,153,.12), rgba(16,185,129,.05));
+      border-color: rgba(52,211,153,.4);
+    }
+    .tile-pay:before{
+      content:"";
+      position:absolute; top:-30px; right:-30px;
+      width:100px; height:100px; border-radius:50%;
+      background: radial-gradient(circle, rgba(52,211,153,.3), transparent 70%);
+      pointer-events:none;
+    }
+    /* Скидки — пурпурный */
+    .tile-promo{
+      background: linear-gradient(135deg, rgba(167,139,250,.15), rgba(139,92,246,.06));
+      border-color: rgba(167,139,250,.45);
+    }
+    .tile-promo:before{
+      content:"";
+      position:absolute; top:-30px; right:-30px;
+      width:100px; height:100px; border-radius:50%;
+      background: radial-gradient(circle, rgba(167,139,250,.35), transparent 70%);
+      pointer-events:none;
+    }
+    .tile-promo-badge{
+      display:inline-block;
+      font-size:11px; font-weight:900;
+      padding:3px 10px;
+      border-radius:999px;
+      background: linear-gradient(135deg, rgba(167,139,250,.35), rgba(139,92,246,.25));
+      border:1px solid rgba(167,139,250,.5);
+      color:var(--text);
+      margin-bottom:6px;
+      letter-spacing:.02em;
+    }
+    /* Поддержка — голубой */
+    .tile-support{
+      background: linear-gradient(135deg, rgba(110,231,255,.14), rgba(56,189,248,.06));
+      border-color: rgba(110,231,255,.4);
+    }
+    .tile-support:before{
+      content:"";
+      position:absolute; top:-30px; right:-30px;
+      width:100px; height:100px; border-radius:50%;
+      background: radial-gradient(circle, rgba(110,231,255,.3), transparent 70%);
+      pointer-events:none;
+    }
     .note{
       border:1px solid rgba(52,211,153,.35);
       background:rgba(52,211,153,.08);
@@ -690,6 +763,418 @@
     }
     .cart-fab-bounce{ animation: cartBounce .35s ease }
 
+    /* ===== DARK THEME ===== */
+    body.dark{
+      --bg:#151209;
+      --panel:#1c1710;
+      --card:#1c1710;
+      --text:#f0e8d8;
+      --muted:#9a9080;
+      --muted2:#6e6558;
+      --line:#2e2720;
+      --shadow: 0 18px 40px rgba(0,0,0,.4);
+      --accent:#2a2218;
+      background:
+        radial-gradient(1200px 800px at 15% -10%, rgba(100,70,20,.25), transparent 60%),
+        radial-gradient(900px 700px at 90% 10%, rgba(80,50,10,.18), transparent 55%),
+        var(--bg);
+    }
+    body.dark .topbar{ background: rgba(21,18,9,.88) }
+    body.dark .search{ background:rgba(255,255,255,.04) }
+    body.dark .search input{ color:var(--text) }
+    body.dark .mobile-menu-card{ background:var(--panel) }
+
+    .theme-toggle{
+      width:44px; height:24px; border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      cursor:pointer;
+      position:relative;
+      transition:.3s ease;
+      flex-shrink:0;
+    }
+    .theme-toggle:after{
+      content:"";
+      position:absolute; top:3px; left:3px;
+      width:16px; height:16px; border-radius:50%;
+      background: var(--brand);
+      transition:.3s ease;
+    }
+    body.dark .theme-toggle{ background:rgba(198,164,107,.25); border-color:rgba(198,164,107,.4) }
+    body.dark .theme-toggle:after{ left:calc(100% - 19px) }
+    .theme-icon{ font-size:13px; pointer-events:none }
+
+    /* ===== WISHLIST ===== */
+    .wish-btn{
+      position:absolute; top:10px; right:10px; z-index:5;
+      width:32px; height:32px; border-radius:10px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.55);
+      backdrop-filter:blur(4px);
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      font-size:16px; line-height:1;
+      transition:.2s ease;
+      color:#aaa;
+    }
+    .wish-btn:hover{ transform:scale(1.12) }
+    .wish-btn.active{ color:#e05252; background:rgba(255,255,255,.8) }
+    @keyframes heartPop{
+      0%{transform:scale(1)}
+      40%{transform:scale(1.45)}
+      100%{transform:scale(1)}
+    }
+    .wish-btn.pop{ animation: heartPop .3s ease }
+
+    /* Wishlist FAB badge */
+    .wish-fab{
+      position:relative;
+    }
+    .wish-count{
+      position:absolute; top:-6px; right:-6px;
+      min-width:20px; height:20px; border-radius:999px;
+      background:linear-gradient(135deg,#e05252,#c03030);
+      color:#fff; font-size:11px; font-weight:900;
+      display:none; align-items:center; justify-content:center;
+      padding:0 5px; border:2px solid var(--bg);
+    }
+
+    /* Wishlist panel (reuse cart-panel styles) */
+    .wish-overlay{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.45);
+      backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
+      z-index:100;
+      display:none; align-items:flex-start; justify-content:flex-end;
+    }
+    .wish-overlay.show{ display:flex }
+    .wish-panel{
+      width:min(420px, 100vw);
+      height:100dvh; overflow-y:auto;
+      background:var(--panel);
+      border-left:1px solid var(--line);
+      box-shadow:-24px 0 60px rgba(80,60,40,.18);
+      display:flex; flex-direction:column;
+    }
+    .wish-header{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:18px 20px; border-bottom:1px solid var(--line);
+      position:sticky; top:0; background:var(--panel); z-index:2;
+    }
+    .wish-body{ flex:1; padding:16px 20px; display:flex; flex-direction:column; gap:10px }
+    .wish-item{
+      display:flex; gap:12px; align-items:center;
+      padding:12px; border:1px solid var(--line);
+      border-radius:16px; background:rgba(255,255,255,.04);
+    }
+    .wish-item-img{
+      width:54px; height:54px; border-radius:10px;
+      background-size:cover; background-position:center;
+      background-color:var(--accent); flex-shrink:0;
+    }
+    .wish-item-info{ flex:1; min-width:0 }
+    .wish-item-title{ font-weight:900; font-size:13px; line-height:1.3; margin-bottom:3px }
+    .wish-item-price{ color:var(--brand2); font-weight:800; font-size:13px }
+    .wish-item-actions{ display:flex; gap:6px; margin-top:6px }
+
+    /* ===== DISCOUNT BADGE ===== */
+    .discount-badge{
+      position:absolute; bottom:10px; right:10px; z-index:3;
+      font-size:12px; font-weight:900;
+      padding:4px 8px; border-radius:999px;
+      background:linear-gradient(135deg,#e05252,#c03030);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.2);
+      letter-spacing:.01em;
+    }
+
+    /* ===== QUICK VIEW MODAL ===== */
+    .qv-overlay{
+      position:fixed; inset:0; z-index:200;
+      background:rgba(0,0,0,.55);
+      backdrop-filter:blur(8px);
+      display:none; align-items:center; justify-content:center;
+      padding:20px;
+    }
+    .qv-overlay.show{ display:flex }
+    .qv-modal{
+      width:min(760px, 100%);
+      max-height:90dvh; overflow-y:auto;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:0 32px 80px rgba(0,0,0,.3);
+      display:grid; grid-template-columns:1fr 1fr; gap:0;
+    }
+    @media(max-width:600px){ .qv-modal{grid-template-columns:1fr} }
+    .qv-img{
+      aspect-ratio:1/1; border-radius:22px 0 0 22px;
+      background-size:cover; background-position:center;
+      background-color:var(--accent); min-height:260px;
+      position:relative;
+    }
+    @media(max-width:600px){ .qv-img{border-radius:22px 22px 0 0; aspect-ratio:4/3} }
+    .qv-body{
+      padding:24px; display:flex; flex-direction:column; gap:14px;
+    }
+    .qv-close{
+      position:absolute; top:12px; right:12px;
+      width:32px; height:32px; border-radius:10px;
+      border:1px solid rgba(255,255,255,.3);
+      background:rgba(255,255,255,.6);
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      font-size:16px; z-index:2;
+    }
+    .qv-tag{
+      display:inline-block; font-size:12px; font-weight:900;
+      padding:5px 10px; border-radius:999px;
+      background:rgba(198,164,107,.2); border:1px solid rgba(198,164,107,.4);
+      color:var(--brand2);
+    }
+    .qv-title{ font-size:20px; font-weight:1000; line-height:1.2; margin:0 }
+    .qv-desc{ color:var(--muted); font-size:14px; line-height:1.6; margin:0 }
+    .qv-price-row{ display:flex; align-items:center; gap:12px }
+    .qv-price{ font-size:26px; font-weight:1000; color:var(--text) }
+    .qv-old{ font-size:15px; color:var(--muted2); text-decoration:line-through; font-weight:700 }
+    .qv-save{
+      font-size:12px; font-weight:900; padding:4px 8px;
+      border-radius:999px; background:linear-gradient(135deg,#e05252,#c03030);
+      color:#fff;
+    }
+    .qv-actions{ display:flex; gap:10px; margin-top:auto }
+
+    /* ===== SALE TIMER BANNER ===== */
+    .sale-banner{
+      background:linear-gradient(135deg, rgba(224,82,82,.15), rgba(167,139,250,.1));
+      border:1px solid rgba(224,82,82,.35);
+      border-radius:16px;
+      padding:12px 16px;
+      display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .sale-banner-text{ flex:1; font-size:14px; font-weight:800 }
+    .sale-timer{
+      display:flex; gap:6px; align-items:center;
+    }
+    .sale-timer-block{
+      display:flex; flex-direction:column; align-items:center;
+      background:rgba(224,82,82,.15); border:1px solid rgba(224,82,82,.3);
+      border-radius:10px; padding:5px 10px; min-width:42px;
+    }
+    .sale-timer-num{ font-size:18px; font-weight:1000; line-height:1; color:#e05252 }
+    .sale-timer-label{ font-size:9px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.05em }
+    .sale-timer-sep{ font-weight:900; color:#e05252; font-size:16px; margin-bottom:12px }
+
+    /* ===== STOCK INDICATOR ===== */
+    .stock-low{
+      font-size:12px; font-weight:800;
+      color:#e05252;
+      display:flex; align-items:center; gap:5px;
+    }
+    .stock-low:before{
+      content:"";
+      width:7px; height:7px; border-radius:50%;
+      background:#e05252;
+      display:inline-block;
+      animation: stockPulse 1.4s ease infinite;
+    }
+    @keyframes stockPulse{
+      0%,100%{opacity:1} 50%{opacity:.4}
+    }
+
+    /* ===== BACK TO TOP ===== */
+    .back-to-top{
+      position:fixed; right:16px; bottom:88px;
+      width:44px; height:44px; border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(247,241,232,.9);
+      backdrop-filter:blur(6px);
+      box-shadow:var(--shadow);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:18px;
+      z-index:79;
+      opacity:0; pointer-events:none;
+      transform:translateY(12px);
+      transition:.25s ease;
+    }
+    .back-to-top.show{ opacity:1; pointer-events:auto; transform:translateY(0) }
+    body.dark .back-to-top{ background:rgba(28,23,16,.9) }
+
+    /* ===== SORT BAR ===== */
+    .sort-bar{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px;
+    }
+    .sort-label{ font-size:13px; color:var(--muted); font-weight:700 }
+    .sort-btn{
+      padding:7px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted); cursor:pointer;
+      font-size:12px; font-weight:800;
+      transition:.2s ease;
+    }
+    .sort-btn:hover{ background:rgba(255,255,255,.07); color:var(--text) }
+    .sort-btn.active{
+      background:rgba(198,164,107,.15);
+      border-color:rgba(198,164,107,.45);
+      color:var(--text);
+    }
+
+    /* ===== ACCESSIBILITY MODE ===== */
+    .a11y-bar{
+      position:fixed; bottom:0; left:0; right:0; z-index:500;
+      background:var(--panel);
+      border-top:2px solid var(--brand);
+      padding:10px 16px;
+      display:none; align-items:center; gap:12px; flex-wrap:wrap;
+      box-shadow:0 -8px 30px rgba(0,0,0,.15);
+    }
+    .a11y-bar.show{ display:flex }
+    .a11y-bar-label{ font-size:13px; font-weight:800; color:var(--muted); white-space:nowrap }
+    .a11y-size-btn{
+      width:36px; height:36px; border-radius:10px;
+      border:2px solid var(--line);
+      background:rgba(255,255,255,.06);
+      cursor:pointer; font-weight:900; font-size:14px;
+      color:var(--text); transition:.15s;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .a11y-size-btn:hover{ background:rgba(255,255,255,.12); border-color:var(--brand) }
+    .a11y-size-display{
+      font-weight:900; font-size:15px; min-width:38px; text-align:center;
+    }
+    .a11y-sep{ width:1px; height:28px; background:var(--line); flex-shrink:0 }
+    .a11y-toggle-btn{
+      padding:8px 14px; border-radius:10px;
+      border:2px solid var(--line);
+      background:rgba(255,255,255,.06);
+      cursor:pointer; font-weight:800; font-size:13px;
+      color:var(--muted); transition:.2s; white-space:nowrap;
+    }
+    .a11y-toggle-btn.on{
+      border-color:var(--brand); background:rgba(198,164,107,.15); color:var(--text);
+    }
+    .a11y-close-bar{
+      margin-left:auto; padding:8px 14px; border-radius:10px;
+      border:2px solid rgba(224,82,82,.4);
+      background:rgba(224,82,82,.08);
+      cursor:pointer; font-weight:800; font-size:13px; color:#e05252;
+    }
+
+    /* Accessibility active state */
+    body.a11y{
+      --text:#000000;
+      --muted:#1a1a1a;
+      --muted2:#333333;
+      --line:#888888;
+      --bg:#fffff0;
+      --panel:#fffff8;
+      --brand:#8B5E00;
+      --brand2:#6B4500;
+      --accent:#fff8dc;
+      font-size: var(--a11y-size, 18px) !important;
+      line-height:1.8 !important;
+      letter-spacing:.01em;
+      background: #fffff0 !important;
+    }
+    body.a11y *{
+      font-size: inherit;
+      line-height: inherit;
+    }
+    body.a11y .btn, body.a11y button:not(.a11y-size-btn):not(.a11y-toggle-btn):not(.a11y-close-bar):not(.doc-close):not(.qv-close){
+      min-height:48px !important;
+      font-size:16px !important;
+      border-width:2px !important;
+    }
+    body.a11y .product{
+      border-width:2px !important;
+      border-color:#555 !important;
+    }
+    body.a11y .price{ font-size:22px !important; font-weight:1000 !important }
+    body.a11y .old{ font-size:15px !important }
+    body.a11y .product .title{ font-size:17px !important }
+    body.a11y .product .desc{ font-size:15px !important; color:#1a1a1a !important }
+    body.a11y nav a{ font-size:16px !important }
+    body.a11y .topbar{ border-bottom:2px solid #888 !important }
+    body.a11y a:focus, body.a11y button:focus{
+      outline:3px solid var(--brand) !important;
+      outline-offset:3px !important;
+    }
+    body.a11y .card{ border-width:2px !important; border-color:#888 !important }
+    body.a11y .h1{ font-size:clamp(28px,4vw,48px) !important }
+    body.a11y .h2{ font-size:clamp(22px,3vw,34px) !important }
+    body.a11y .chip, body.a11y .badge{ font-size:14px !important; border-width:2px !important }
+    body.a11y .inquiry-input{ font-size:17px !important; border-width:2px !important; min-height:48px !important }
+    body.a11y .cat-btn{ font-size:15px !important; padding:12px 16px !important; border-width:2px !important }
+    body.a11y .search input{ font-size:15px !important }
+    body.a11y .muted{ color:#1a1a1a !important }
+    body.a11y .muted2{ color:#333 !important }
+
+    /* High contrast toggle */
+    body.a11y.a11y-contrast{
+      --bg:#000000;
+      --panel:#111100;
+      --text:#ffff00;
+      --muted:#dddd00;
+      --muted2:#bbbb00;
+      --line:#ffff00;
+      --brand:#ffff00;
+      --brand2:#dddd00;
+      background:#000 !important;
+    }
+    body.a11y.a11y-contrast .btn.primary,
+    body.a11y.a11y-contrast .btn-cart{
+      background:#ffff00 !important; color:#000 !important;
+    }
+    body.a11y.a11y-contrast .topbar{ background:#000 !important }
+
+    /* No animations toggle */
+    body.a11y.a11y-noanim *{
+      animation:none !important;
+      transition:none !important;
+    }
+
+    /* ===== DOC MODALS (Policy / Offer) ===== */
+    .doc-overlay{
+      position:fixed; inset:0; z-index:300;
+      background:rgba(0,0,0,.55);
+      backdrop-filter:blur(8px);
+      display:none; align-items:center; justify-content:center;
+      padding:20px;
+    }
+    .doc-overlay.show{ display:flex }
+    .doc-modal{
+      width:min(680px,100%);
+      max-height:88dvh;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:0 32px 80px rgba(0,0,0,.3);
+      display:flex; flex-direction:column;
+      overflow:hidden;
+    }
+    .doc-header{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:18px 22px; border-bottom:1px solid var(--line);
+      font-size:16px; font-weight:900;
+      position:sticky; top:0; background:var(--panel); z-index:2; flex-shrink:0;
+    }
+    .doc-body{
+      padding:22px 24px; overflow-y:auto; flex:1;
+      color:var(--text); font-size:14px; line-height:1.7;
+    }
+    .doc-body h3{
+      font-size:15px; font-weight:900; margin:22px 0 8px;
+      color:var(--brand2);
+    }
+    .doc-body p{ margin:0 0 10px }
+    .doc-body ul{ margin:0 0 10px; padding-left:20px }
+    .doc-body ul li{ margin-bottom:5px }
+    .doc-date{
+      font-size:12px; color:var(--muted2); font-style:italic; margin-bottom:16px !important;
+    }
+
   </style>
 </head>
 <body>
@@ -712,6 +1197,22 @@
         </nav>
 
         <div class="top-actions">
+          <!-- Accessibility -->
+          <button class="btn icon" id="a11yBtn" title="Версия для слабовидящих" aria-label="Версия для слабовидящих" style="font-size:18px">👁</button>
+
+          <!-- Dark theme toggle -->
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="theme-icon">☀️</span>
+            <button class="theme-toggle" id="themeToggle" title="Тёмная тема" aria-label="Переключить тему"></button>
+            <span class="theme-icon">🌙</span>
+          </div>
+
+          <!-- Wishlist -->
+          <button class="btn icon wish-fab" id="wishFab" title="Избранное" aria-label="Избранное" style="position:relative">
+            ♡
+            <span class="wish-count" id="wishCount">0</span>
+          </button>
+
           <button class="btn icon cart-fab" id="cartFab" title="Корзина" aria-label="Открыть корзину" style="position:relative">
             🛒
             <span class="cart-count" id="cartCount">0</span>
@@ -784,19 +1285,27 @@
             <div class="sep"></div>
 
             <div class="grid hero-tiles">
-              <div class="tile">
+              <div class="tile tile-hits" id="tileHits" style="cursor:pointer" title="Смотреть хиты">
+                <div class="tile-icon">🏆</div>
                 <div class="t">Хит-подборки</div>
                 <div class="d">Органайзеры, хранение, уборка — то, что реально упрощает быт.</div>
+                <div style="margin-top:10px; font-size:12px; font-weight:800; color:var(--brand2); display:flex; align-items:center; gap:5px">
+                  Смотреть подборку <span style="font-size:14px">→</span>
+                </div>
               </div>
-              <div class="tile">
+              <div class="tile tile-pay">
+                <div class="tile-icon">💳</div>
                 <div class="t">Оплата</div>
-                <div class="d">Картой/наличными при получении или онлайн (в демо — заглушка).</div>
+                <div class="d">Картой или наличными при получении.</div>
               </div>
-              <div class="tile">
+              <div class="tile tile-promo">
+                <div class="tile-icon">🎁</div>
                 <div class="t">Скидки</div>
-                <div class="d">Промокод <b>PROUYUT</b> на −7% в корзине.</div>
+                <div class="tile-promo-badge">PROUYUT −7%</div>
+                <div class="d">Введите промокод в корзине и получите скидку на весь заказ.</div>
               </div>
-              <div class="tile">
+              <div class="tile tile-support">
+                <div class="tile-icon">💬</div>
                 <div class="t">Поддержка</div>
                 <div class="d">Поможем выбрать по фото/видео. Быстро ответим в мессенджере.</div>
               </div>
@@ -815,12 +1324,31 @@
           <h2 class="h2">Каталог</h2>
           <p class="sub">Выберите категорию, используйте поиск. Добавляйте в корзину и оформляйте заказ.</p>
         </div>
-        <div class="mini-row">
-          <span class="chip">💡 Подсказка: клик по товару открывает описание</span>
+      </div>
+
+      <!-- Sale banner with timer -->
+      <div class="sale-banner" id="saleBanner">
+        <div>🔥</div>
+        <div class="sale-banner-text">Скидка 10% на всю кухню — только сегодня!</div>
+        <div class="sale-timer" id="saleTimer">
+          <div class="sale-timer-block"><div class="sale-timer-num" id="timerH">00</div><div class="sale-timer-label">часов</div></div>
+          <div class="sale-timer-sep">:</div>
+          <div class="sale-timer-block"><div class="sale-timer-num" id="timerM">00</div><div class="sale-timer-label">минут</div></div>
+          <div class="sale-timer-sep">:</div>
+          <div class="sale-timer-block"><div class="sale-timer-num" id="timerS">00</div><div class="sale-timer-label">секунд</div></div>
         </div>
       </div>
 
       <div class="cats" id="categoryBar" aria-label="Категории товаров"></div>
+
+      <!-- Sort bar -->
+      <div class="sort-bar">
+        <span class="sort-label">Сортировка:</span>
+        <button class="sort-btn active" data-sort="default">По умолчанию</button>
+        <button class="sort-btn" data-sort="price-asc">Дешевле</button>
+        <button class="sort-btn" data-sort="price-desc">Дороже</button>
+        <button class="sort-btn" data-sort="discount">По скидке</button>
+      </div>
 
       <div class="sep"></div>
 
@@ -1030,6 +1558,30 @@
     </div>
   </section>
 
+  <!-- Wishlist Overlay -->
+  <div class="wish-overlay" id="wishOverlay">
+    <div class="wish-panel">
+      <div class="wish-header">
+        <b style="font-size:17px">♡ Избранное</b>
+        <button class="btn icon" id="closeWish" aria-label="Закрыть">✕</button>
+      </div>
+      <div class="wish-body" id="wishBody"></div>
+    </div>
+  </div>
+
+  <!-- Quick View Modal -->
+  <div class="qv-overlay" id="qvOverlay">
+    <div class="qv-modal" id="qvModal">
+      <div class="qv-img" id="qvImg">
+        <button class="qv-close" id="qvClose">✕</button>
+      </div>
+      <div class="qv-body" id="qvBody"></div>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Наверх">↑</button>
+
   <!-- Cart Overlay -->
   <div class="cart-overlay" id="cartOverlay" aria-label="Корзина">
     <div class="cart-panel" id="cartPanel">
@@ -1118,11 +1670,134 @@
         <div>© <span id="year"></span> Pro Уют. Все права защищены.</div>
         <div class="mini-row">
           <a class="chip" href="#top">Наверх ↑</a>
-          <span class="chip">Политика • оферта (добавите при необходимости)</span>
+          <button class="chip" id="openPolicy" style="cursor:pointer;border:none;font-family:inherit;font-size:inherit">📄 Политика конфиденциальности</button>
+          <button class="chip" id="openOffer" style="cursor:pointer;border:none;font-family:inherit;font-size:inherit">📋 Публичная оферта</button>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- Policy Modal -->
+  <div class="doc-overlay" id="policyOverlay">
+    <div class="doc-modal">
+      <div class="doc-header">
+        <b>Политика конфиденциальности</b>
+        <button class="btn icon doc-close" data-close="policyOverlay">✕</button>
+      </div>
+      <div class="doc-body">
+        <p class="doc-date">Актуальна с 1 января 2025 года</p>
+
+        <h3>1. Общие положения</h3>
+        <p>Настоящая Политика конфиденциальности (далее — «Политика») регулирует порядок сбора, хранения, использования и защиты персональных данных пользователей сайта интернет-магазина «Pro Уют» (далее — «Магазин»), расположенного по адресу: Ессентуки, ул. Маяковского, 10.</p>
+        <p>Используя сайт или оставляя заявку, вы соглашаетесь с условиями настоящей Политики. Если вы не согласны — пожалуйста, не передавайте нам свои данные.</p>
+
+        <h3>2. Какие данные мы собираем</h3>
+        <p>При оформлении заявки или заказа мы можем запрашивать следующие данные:</p>
+        <ul>
+          <li>Имя и фамилия</li>
+          <li>Номер телефона</li>
+          <li>Сообщение или вопрос, которые вы оставляете добровольно</li>
+        </ul>
+        <p>Мы не собираем платёжные данные, данные банковских карт, адреса электронной почты или иные сведения, не запрошенные явно в форме.</p>
+
+        <h3>3. Цели использования данных</h3>
+        <p>Ваши данные используются исключительно для:</p>
+        <ul>
+          <li>Связи с вами по вопросу уточнения наличия товара или подтверждения заказа</li>
+          <li>Информирования об изменении статуса заказа</li>
+          <li>Ответа на ваши вопросы</li>
+        </ul>
+
+        <h3>4. Хранение и защита данных</h3>
+        <p>Данные хранятся только на период, необходимый для выполнения заявки. Мы применяем организационные и технические меры для защиты ваших персональных данных от неправомерного доступа, изменения или разглашения.</p>
+
+        <h3>5. Передача данных третьим лицам</h3>
+        <p>Мы не передаём ваши персональные данные третьим лицам в коммерческих или рекламных целях. Передача возможна только по прямому требованию уполномоченных органов в случаях, предусмотренных действующим законодательством РФ.</p>
+
+        <h3>6. Права пользователя</h3>
+        <p>Вы вправе в любой момент:</p>
+        <ul>
+          <li>Запросить информацию о хранящихся данных</li>
+          <li>Потребовать исправления или удаления ваших данных</li>
+          <li>Отозвать согласие на обработку персональных данных</li>
+        </ul>
+        <p>Для этого свяжитесь с нами по телефону <a href="tel:+79283237768" style="color:var(--brand2);font-weight:700">+7 (928) 323-77-68</a>.</p>
+
+        <h3>7. Изменения Политики</h3>
+        <p>Мы оставляем за собой право вносить изменения в настоящую Политику. Актуальная версия всегда доступна на сайте. Продолжение использования сайта после изменений означает ваше согласие с новой редакцией.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offer Modal -->
+  <div class="doc-overlay" id="offerOverlay">
+    <div class="doc-modal">
+      <div class="doc-header">
+        <b>Публичная оферта</b>
+        <button class="btn icon doc-close" data-close="offerOverlay">✕</button>
+      </div>
+      <div class="doc-body">
+        <p class="doc-date">Актуальна с 1 января 2025 года</p>
+
+        <h3>1. Общие положения</h3>
+        <p>Настоящий документ является публичной офертой интернет-магазина «Pro Уют» (далее — «Продавец»), адресованной любому физическому лицу (далее — «Покупатель»), и содержит условия дистанционной продажи товаров.</p>
+        <p>Акцептом оферты считается оформление заказа через сайт или по телефону. С момента акцепта договор купли-продажи считается заключённым.</p>
+
+        <h3>2. Предмет договора</h3>
+        <p>Продавец обязуется передать Покупателю товары для дома и быта, представленные в каталоге на сайте, а Покупатель — принять и оплатить их на условиях настоящей оферты.</p>
+        <p>Ассортимент, наличие и актуальные цены уточняются в магазине или по телефону. Изображения товаров носят ознакомительный характер.</p>
+
+        <h3>3. Цены и оплата</h3>
+        <ul>
+          <li>Цены указаны в российских рублях, включают НДС (если применимо)</li>
+          <li>Оплата производится наличными или банковской картой при получении товара</li>
+          <li>Продавец вправе изменять цены без предварительного уведомления; цена фиксируется в момент подтверждения заказа</li>
+        </ul>
+
+        <h3>4. Оформление и подтверждение заказа</h3>
+        <p>Заказ считается принятым после звонка или сообщения от представителя магазина с подтверждением наличия товара и итоговой суммы. До этого момента заказ носит предварительный характер.</p>
+
+        <h3>5. Передача товара</h3>
+        <p>Товар передаётся Покупателю лично в магазине по адресу: <b>Ессентуки, ул. Маяковского, 10</b>. Время работы: ежедневно 09:00–19:00.</p>
+        <p>При получении Покупатель обязан проверить комплектность и внешний вид товара. Претензии по видимым дефектам, обнаруженным после получения, могут не приниматься.</p>
+
+        <h3>6. Возврат и обмен</h3>
+        <ul>
+          <li>Возврат товара надлежащего качества — в течение <b>14 дней</b> с момента получения при сохранении товарного вида, упаковки и чека</li>
+          <li>Товар ненадлежащего качества подлежит замене или возврату в соответствии с Законом РФ «О защите прав потребителей»</li>
+          <li>Возврат денежных средств осуществляется в течение 10 рабочих дней после подтверждения основания возврата</li>
+        </ul>
+
+        <h3>7. Ответственность сторон</h3>
+        <p>Продавец не несёт ответственности за ненадлежащее использование товара Покупателем, а также за косвенные убытки, возникшие вследствие использования приобретённых товаров.</p>
+
+        <h3>8. Контактная информация</h3>
+        <p>По всем вопросам обращайтесь:<br>
+        📞 <a href="tel:+79283237768" style="color:var(--brand2);font-weight:700">+7 (928) 323-77-68</a><br>
+        📍 Ессентуки, ул. Маяковского, 10<br>
+        🕘 Ежедневно 09:00–19:00</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accessibility Bar -->
+  <div class="a11y-bar" id="a11yBar" role="toolbar" aria-label="Настройки доступности">
+    <span class="a11y-bar-label">👁 Для слабовидящих:</span>
+
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="a11y-bar-label">Шрифт:</span>
+      <button class="a11y-size-btn" id="a11yMinus" aria-label="Уменьшить шрифт">A−</button>
+      <span class="a11y-size-display" id="a11ySizeDisplay">18px</span>
+      <button class="a11y-size-btn" id="a11yPlus" aria-label="Увеличить шрифт">A+</button>
+    </div>
+
+    <div class="a11y-sep"></div>
+
+    <button class="a11y-toggle-btn" id="a11yContrast" aria-pressed="false">⬛ Высокий контраст</button>
+    <button class="a11y-toggle-btn" id="a11yNoanim" aria-pressed="false">⏸ Без анимаций</button>
+
+    <button class="a11y-close-bar" id="a11yOff" aria-label="Выключить режим доступности">✕ Выключить</button>
+  </div>
 
   <div class="float" aria-label="Быстрые действия">
     <a class="fab primary" href="#inquiry" title="Уточнить товар" aria-label="Уточнить наличие">📝</a>
@@ -1393,6 +2068,17 @@ ${note.extra}
     const productsGrid = document.getElementById("productsGrid");
     let activeCat = "all";
     let query = "";
+    let hitMode = false;
+    let sortMode = "default";
+    const HIT_TAGS = ["Хит", "Топ"];
+
+    // Stock indicators for some products
+    const STOCK = { p1:3, p8:2, p15:4, p21:1, p23:2 };
+
+    // Cart and wishlist — объявляем до renderProducts
+    let cart = {};
+    let promoApplied = false;
+    let wishlist = new Set(JSON.parse(localStorage.getItem("wishlist")||"[]"));
 
     function renderCategories(){
       categoryBar.innerHTML = CATEGORIES.map(c=>`
@@ -1403,6 +2089,7 @@ ${note.extra}
       categoryBar.querySelectorAll(".cat-btn").forEach(btn=>{
         btn.addEventListener("click", ()=>{
           activeCat = btn.dataset.cat;
+          hitMode = false;
           renderCategories();
           renderProducts();
         });
@@ -1412,14 +2099,38 @@ ${note.extra}
 
     function getFilteredProducts(){
       const q = query.trim().toLowerCase();
-      return PRODUCTS.filter(p=>{
+      let list = PRODUCTS.filter(p=>{
         const catOk = activeCat==="all" ? true : p.cat===activeCat;
         const qOk = !q ? true : (p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
-        return catOk && qOk;
+        const hitOk = hitMode ? HIT_TAGS.includes(p.tag) : true;
+        return catOk && qOk && hitOk;
       });
+      if(sortMode==="price-asc") list = [...list].sort((a,b)=>a.price-b.price);
+      else if(sortMode==="price-desc") list = [...list].sort((a,b)=>b.price-a.price);
+      else if(sortMode==="discount") list = [...list].sort((a,b)=>(b.old-b.price)-(a.old-a.price));
+      return list;
     }
 
     function renderProducts(){
+      // Hit mode banner
+      let banner = document.getElementById("hitBanner");
+      if(hitMode){
+        if(!banner){
+          banner = document.createElement("div");
+          banner.id = "hitBanner";
+          banner.style.cssText = "display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;border:1px solid rgba(198,164,107,.5);background:linear-gradient(135deg,rgba(198,164,107,.15),rgba(167,123,79,.07));margin-bottom:14px;font-size:14px;font-weight:800;";
+          banner.innerHTML = `🏆 Показаны хиты продаж <button id="hitResetBtn" style="margin-left:auto;padding:6px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.08);cursor:pointer;font-size:13px;font-weight:800;color:var(--text)">✕ Сбросить</button>`;
+          productsGrid.parentNode.insertBefore(banner, productsGrid);
+          document.getElementById("hitResetBtn").addEventListener("click", ()=>{
+            hitMode = false;
+            banner.remove();
+            renderProducts();
+          });
+        }
+      } else {
+        if(banner) banner.remove();
+      }
+
       const list = getFilteredProducts();
       if(list.length===0){
         productsGrid.innerHTML = `<div class="card" style="grid-column:1/-1; padding:16px">
@@ -1429,13 +2140,21 @@ ${note.extra}
         return;
       }
 
-      productsGrid.innerHTML = list.map(p=>`
+      productsGrid.innerHTML = list.map(p=>{
+        const discPct = p.old > p.price ? Math.round((1 - p.price/p.old)*100) : 0;
+        const inCart = cart[p.id] || 0;
+        const inWish = wishlist.has(p.id);
+        const stockNum = STOCK[p.id];
+        return `
           <article class="product" data-id="${p.id}">
             <div class="img" role="img" aria-label="${p.title}" style="background-image:url('${p.img || "assets/products/placeholder.jpg"}')">
               <span class="tag">${p.tag}</span>
+              <button class="wish-btn${inWish?' active':''}" data-wish title="В избранное">${inWish?'♥':'♡'}</button>
+              ${discPct>0?`<span class="discount-badge">−${discPct}%</span>`:''}
             </div>
             <div class="title">${p.title}</div>
             <div class="desc">${p.desc}</div>
+            ${stockNum!==undefined?`<div class="stock-low">Осталось ${stockNum} шт.</div>`:''}
             <div class="price-row">
               <div>
                 <span class="price">${fmt(p.price)}</span>
@@ -1444,26 +2163,31 @@ ${note.extra}
               <span class="badge">${categoryName(p.cat)}</span>
             </div>
 
-            <div class="muted2" style="font-size:12px; line-height:1.4">
-              Наличие и актуальную цену уточняйте в магазине или через форму связи.
-            </div>
-
             <div class="p-actions">
-              <button class="btn small primary" type="button" data-addcart style="flex:1; justify-content:center">🛒 В корзину</button>
-              <button class="btn small btn-desc" type="button" data-desc>📝</button>
-              <button class="btn small" type="button" data-inquiry>Наличие</button>
+              ${inCart>0
+                ? `<div class="qty" style="flex:1;justify-content:center">
+                    <button data-qminus>−</button>
+                    <span>${inCart}</span>
+                    <button data-qplus>+</button>
+                   </div>`
+                : `<button class="btn small primary" type="button" data-addcart style="flex:1; justify-content:center">🛒 В корзину</button>`
+              }
+              <button class="btn small" type="button" data-quickview title="Быстрый просмотр">👁</button>
+              <button class="btn small" type="button" data-desc>📝</button>
             </div>
           </article>
-      `).join("");
+        `;
+      }).join("");
 
       productsGrid.querySelectorAll(".product").forEach(card=>{
         const id = card.dataset.id;
         const p = PRODUCTS.find(x=>x.id===id);
 
-        card.querySelector("[data-addcart]").addEventListener("click", (e)=>{
+        // Add to cart
+        const addBtn = card.querySelector("[data-addcart]");
+        if(addBtn) addBtn.addEventListener("click", (e)=>{
           e.preventDefault(); e.stopPropagation();
           cartAdd(p.id);
-          // animate fab
           const fab = document.getElementById("cartFab");
           fab.classList.remove("cart-fab-bounce");
           void fab.offsetWidth;
@@ -1471,26 +2195,44 @@ ${note.extra}
           fab.addEventListener("animationend", ()=> fab.classList.remove("cart-fab-bounce"), {once:true});
         });
 
-        card.querySelector("[data-inquiry]").addEventListener("click", (e)=>{
-          e.preventDefault();
-          e.stopPropagation();
-          // Подставляем название товара в форму
+        // Qty +/-
+        const qPlus = card.querySelector("[data-qplus]");
+        const qMinus = card.querySelector("[data-qminus]");
+        if(qPlus) qPlus.addEventListener("click", (e)=>{ e.stopPropagation(); cartSetQty(p.id, (cart[p.id]||0)+1); });
+        if(qMinus) qMinus.addEventListener("click", (e)=>{ e.stopPropagation(); cartSetQty(p.id, (cart[p.id]||0)-1); });
+
+        // Wishlist
+        card.querySelector("[data-wish]").addEventListener("click", (e)=>{
+          e.preventDefault(); e.stopPropagation();
+          toggleWish(p.id);
+          const btn = card.querySelector("[data-wish]");
+          btn.classList.toggle("active", wishlist.has(p.id));
+          btn.textContent = wishlist.has(p.id) ? "♥" : "♡";
+          btn.classList.remove("pop"); void btn.offsetWidth; btn.classList.add("pop");
+        });
+
+        // Quick view
+        card.querySelector("[data-quickview]").addEventListener("click", (e)=>{
+          e.preventDefault(); e.stopPropagation();
+          openQuickView(p);
+        });
+
+        // Description
+        card.querySelector("[data-desc]").addEventListener("click", (e)=>{
+          e.preventDefault(); e.stopPropagation();
+          openQuickView(p); // reuse quick view instead of alert
+        });
+
+        card.querySelector("[data-inquiry]")?.addEventListener("click", (e)=>{
+          e.preventDefault(); e.stopPropagation();
           const inqProduct = document.getElementById("inqProduct");
           if(inqProduct) inqProduct.value = p.title;
-          // Переходим на форму
           document.getElementById("inquiry").scrollIntoView({ behavior:"smooth" });
-          // Подсвечиваем поле
           setTimeout(()=>{
             inqProduct.focus();
             inqProduct.classList.add("highlight");
             setTimeout(()=> inqProduct.classList.remove("highlight"), 1200);
           }, 500);
-        });
-
-        card.querySelector("[data-desc]").addEventListener("click", (e)=>{
-          e.preventDefault();
-          e.stopPropagation();
-          alert(buildProductDescription(p));
         });
       });
     }
@@ -1501,6 +2243,7 @@ ${note.extra}
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("input", ()=>{
       query = searchInput.value;
+      if(query) hitMode = false;
       renderProducts();
     });
     document.addEventListener("keydown", (e)=>{
@@ -1627,7 +2370,258 @@ ${note.extra}
       }, 900);
     });
 
+    /* ===== ACCESSIBILITY ===== */
+    let a11yActive = localStorage.getItem("a11y") === "1";
+    let a11ySize = parseInt(localStorage.getItem("a11ySize") || "18");
+    let a11yContrast = localStorage.getItem("a11yContrast") === "1";
+    let a11yNoanim = localStorage.getItem("a11yNoanim") === "1";
+
+    function applyA11y(){
+      document.body.classList.toggle("a11y", a11yActive);
+      document.getElementById("a11yBar").classList.toggle("show", a11yActive);
+      document.getElementById("a11yBtn").style.background = a11yActive ? "rgba(198,164,107,.25)" : "";
+      document.getElementById("a11yBtn").style.borderColor = a11yActive ? "var(--brand)" : "";
+      if(a11yActive){
+        document.documentElement.style.setProperty("--a11y-size", a11ySize + "px");
+        document.getElementById("a11ySizeDisplay").textContent = a11ySize + "px";
+        // padding for fixed bar
+        document.body.style.paddingBottom = "70px";
+      } else {
+        document.documentElement.style.removeProperty("--a11y-size");
+        document.body.style.paddingBottom = "";
+      }
+      document.body.classList.toggle("a11y-contrast", a11yActive && a11yContrast);
+      document.body.classList.toggle("a11y-noanim", a11yActive && a11yNoanim);
+      document.getElementById("a11yContrast").classList.toggle("on", a11yContrast);
+      document.getElementById("a11yNoanim").classList.toggle("on", a11yNoanim);
+      document.getElementById("a11yContrast").setAttribute("aria-pressed", a11yContrast);
+      document.getElementById("a11yNoanim").setAttribute("aria-pressed", a11yNoanim);
+    }
+
+    applyA11y();
+
+    document.getElementById("a11yBtn").addEventListener("click", ()=>{
+      a11yActive = !a11yActive;
+      localStorage.setItem("a11y", a11yActive ? "1" : "0");
+      applyA11y();
+    });
+
+    document.getElementById("a11yPlus").addEventListener("click", ()=>{
+      a11ySize = Math.min(28, a11ySize + 2);
+      localStorage.setItem("a11ySize", a11ySize);
+      applyA11y();
+    });
+    document.getElementById("a11yMinus").addEventListener("click", ()=>{
+      a11ySize = Math.max(14, a11ySize - 2);
+      localStorage.setItem("a11ySize", a11ySize);
+      applyA11y();
+    });
+
+    document.getElementById("a11yContrast").addEventListener("click", ()=>{
+      a11yContrast = !a11yContrast;
+      localStorage.setItem("a11yContrast", a11yContrast ? "1" : "0");
+      applyA11y();
+    });
+    document.getElementById("a11yNoanim").addEventListener("click", ()=>{
+      a11yNoanim = !a11yNoanim;
+      localStorage.setItem("a11yNoanim", a11yNoanim ? "1" : "0");
+      applyA11y();
+    });
+    document.getElementById("a11yOff").addEventListener("click", ()=>{
+      a11yActive = false;
+      a11yContrast = false;
+      a11yNoanim = false;
+      localStorage.setItem("a11y", "0");
+      localStorage.setItem("a11yContrast", "0");
+      localStorage.setItem("a11yNoanim", "0");
+      applyA11y();
+    });
+
+    /* ===== DOC MODALS ===== */
+    function openDoc(id){
+      document.getElementById(id).classList.add("show");
+      document.body.style.overflow="hidden";
+    }
+    function closeDoc(id){
+      document.getElementById(id).classList.remove("show");
+      document.body.style.overflow="";
+    }
+    document.getElementById("openPolicy").addEventListener("click",()=>openDoc("policyOverlay"));
+    document.getElementById("openOffer").addEventListener("click",()=>openDoc("offerOverlay"));
+    document.querySelectorAll(".doc-close").forEach(btn=>{
+      btn.addEventListener("click",()=>closeDoc(btn.dataset.close));
+    });
+    document.querySelectorAll(".doc-overlay").forEach(ov=>{
+      ov.addEventListener("click",(e)=>{ if(e.target===ov) closeDoc(ov.id); });
+    });
+
     document.querySelectorAll("button").forEach(b=> b.style.touchAction = "manipulation");
+
+    /* ===== DARK THEME ===== */
+    const themeToggle = document.getElementById("themeToggle");
+    if(localStorage.getItem("theme")==="dark") document.body.classList.add("dark");
+    themeToggle.addEventListener("click", ()=>{
+      document.body.classList.toggle("dark");
+      localStorage.setItem("theme", document.body.classList.contains("dark")?"dark":"light");
+    });
+
+    /* ===== WISHLIST ===== */
+    function toggleWish(id){
+      if(wishlist.has(id)) wishlist.delete(id);
+      else wishlist.add(id);
+      localStorage.setItem("wishlist", JSON.stringify([...wishlist]));
+      updateWishUI();
+    }
+    function updateWishUI(){
+      const cnt = wishlist.size;
+      const el = document.getElementById("wishCount");
+      el.textContent = cnt;
+      el.style.display = cnt>0?"flex":"none";
+      renderWishBody();
+    }
+    function renderWishBody(){
+      const body = document.getElementById("wishBody");
+      if(wishlist.size===0){
+        body.innerHTML=`<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);text-align:center;padding:40px 0">
+          <div style="font-size:48px">♡</div>
+          <b>Избранное пусто</b>
+          <p style="margin:0;font-size:14px">Нажмите ♡ на товаре, чтобы сохранить</p>
+        </div>`;
+        return;
+      }
+      body.innerHTML=[...wishlist].map(id=>{
+        const p=PRODUCTS.find(x=>x.id===id); if(!p) return "";
+        const inCart=cart[id]||0;
+        return `<div class="wish-item">
+          <div class="wish-item-img" style="background-image:url('${p.img||""}')"></div>
+          <div class="wish-item-info">
+            <div class="wish-item-title">${p.title}</div>
+            <div class="wish-item-price">${fmt(p.price)}</div>
+            <div class="wish-item-actions">
+              <button class="btn small primary" style="font-size:12px;padding:6px 10px" onclick="cartAdd('${id}');renderWishBody()">🛒 В корзину${inCart>0?' ('+inCart+')':''}</button>
+              <button class="btn small" style="font-size:12px;padding:6px 10px;color:#e05252" onclick="toggleWish('${id}');renderProducts()">✕</button>
+            </div>
+          </div>
+        </div>`;
+      }).join("");
+    }
+    document.getElementById("wishFab").addEventListener("click",()=>{
+      document.getElementById("wishOverlay").classList.add("show");
+      document.body.style.overflow="hidden";
+    });
+    document.getElementById("closeWish").addEventListener("click",()=>{
+      document.getElementById("wishOverlay").classList.remove("show");
+      document.body.style.overflow="";
+    });
+    document.getElementById("wishOverlay").addEventListener("click",(e)=>{
+      if(e.target===document.getElementById("wishOverlay")){
+        document.getElementById("wishOverlay").classList.remove("show");
+        document.body.style.overflow="";
+      }
+    });
+    updateWishUI();
+
+    /* ===== QUICK VIEW ===== */
+    function openQuickView(p){
+      const discPct = p.old>p.price ? Math.round((1-p.price/p.old)*100) : 0;
+      const inCart = cart[p.id]||0;
+      document.getElementById("qvImg").style.backgroundImage=`url('${p.img||""}')`;
+      document.getElementById("qvBody").innerHTML=`
+        <div><span class="qv-tag">${p.tag}</span></div>
+        <h2 class="qv-title">${p.title}</h2>
+        <p class="qv-desc">${buildProductDescription(p).split('\n').slice(0,6).join('<br>')}</p>
+        <div class="qv-price-row">
+          <span class="qv-price">${fmt(p.price)}</span>
+          <span class="qv-old">${fmt(p.old)}</span>
+          ${discPct>0?`<span class="qv-save">−${discPct}%</span>`:''}
+        </div>
+        <div class="qv-actions">
+          ${inCart>0
+            ? `<div class="qty" style="flex:1;justify-content:center">
+                <button onclick="cartSetQty('${p.id}',${inCart-1});document.getElementById('qvBody').querySelector('.qty span').textContent=${inCart-1};if(${inCart-1}===0)openQuickView(PRODUCTS.find(x=>x.id==='${p.id}'))">−</button>
+                <span>${inCart}</span>
+                <button onclick="cartSetQty('${p.id}',${inCart+1});openQuickView(PRODUCTS.find(x=>x.id==='${p.id}'))">+</button>
+               </div>`
+            : `<button class="btn primary" style="flex:1;justify-content:center" onclick="cartAdd('${p.id}');openQuickView(PRODUCTS.find(x=>x.id==='${p.id}'))">🛒 В корзину</button>`
+          }
+          <button class="btn ghost" onclick="toggleWish('${p.id}');openQuickView(PRODUCTS.find(x=>x.id==='${p.id}'))">${wishlist.has(p.id)?'♥ В избранном':'♡ В избранное'}</button>
+        </div>
+      `;
+      document.getElementById("qvOverlay").classList.add("show");
+      document.body.style.overflow="hidden";
+    }
+    document.getElementById("qvClose").addEventListener("click",()=>{
+      document.getElementById("qvOverlay").classList.remove("show");
+      document.body.style.overflow="";
+      renderProducts();
+    });
+    document.getElementById("qvOverlay").addEventListener("click",(e)=>{
+      if(e.target===document.getElementById("qvOverlay")){
+        document.getElementById("qvOverlay").classList.remove("show");
+        document.body.style.overflow="";
+        renderProducts();
+      }
+    });
+
+    /* ===== SORT ===== */
+    document.querySelectorAll(".sort-btn").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        sortMode=btn.dataset.sort;
+        document.querySelectorAll(".sort-btn").forEach(b=>b.classList.toggle("active",b===btn));
+        renderProducts();
+      });
+    });
+
+    /* ===== SALE TIMER ===== */
+    function getSaleEnd(){
+      const key="saleEnd";
+      let end=localStorage.getItem(key);
+      if(!end||Date.now()>+end){
+        // Reset to end of today
+        const d=new Date(); d.setHours(23,59,59,999);
+        end=d.getTime();
+        localStorage.setItem(key,end);
+      }
+      return +end;
+    }
+    const saleEnd=getSaleEnd();
+    function updateTimer(){
+      const diff=Math.max(0,saleEnd-Date.now());
+      const h=Math.floor(diff/3600000);
+      const m=Math.floor((diff%3600000)/60000);
+      const s=Math.floor((diff%60000)/1000);
+      document.getElementById("timerH").textContent=String(h).padStart(2,"0");
+      document.getElementById("timerM").textContent=String(m).padStart(2,"0");
+      document.getElementById("timerS").textContent=String(s).padStart(2,"0");
+      if(diff===0) document.getElementById("saleBanner").style.display="none";
+    }
+    updateTimer();
+    setInterval(updateTimer,1000);
+
+    /* ===== BACK TO TOP ===== */
+    const btt=document.getElementById("backToTop");
+    window.addEventListener("scroll",()=>{
+      btt.classList.toggle("show",window.scrollY>400);
+    });
+    btt.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+
+    /* Плитка Хит-подборки */
+    document.getElementById("tileHits").addEventListener("click", ()=>{
+      const HIT_TAGS = ["Хит", "Топ"];
+      // Сбрасываем категорию на «Все»
+      activeCat = "all";
+      // Устанавливаем поисковый запрос пустым, фильтр делаем через hitMode
+      query = "";
+      searchInput.value = "";
+      hitMode = true;
+      renderCategories();
+      renderProducts();
+      // Прокрутка к каталогу
+      document.getElementById("catalog").scrollIntoView({ behavior:"smooth" });
+      // Подсвечиваем сброс
+      const resetBtn = document.getElementById("hitResetBtn");
+      if(resetBtn) resetBtn.style.display = "inline-flex";
+    });
 
     /* ==========================
       CART SYSTEM
@@ -1635,21 +2629,21 @@ ${note.extra}
     const PROMO_CODE = "PROUYUT";
     const PROMO_DISCOUNT = 0.07; // 7%
 
-    let cart = {}; // { productId: quantity }
-    let promoApplied = false;
-
     function cartAdd(id){
       cart[id] = (cart[id] || 0) + 1;
       updateCartUI();
+      renderProducts();
     }
     function cartRemove(id){
       delete cart[id];
       updateCartUI();
+      renderProducts();
     }
     function cartSetQty(id, qty){
       if(qty <= 0){ cartRemove(id); return; }
       cart[id] = qty;
       updateCartUI();
+      renderProducts();
     }
 
     function cartItems(){
